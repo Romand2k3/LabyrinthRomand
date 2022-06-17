@@ -47,15 +47,21 @@ cmake_ninja_workdir = D$:/cppsha/LabyrinthRomand/cmake-build-debug/
 #############################################
 # Order-only phony target for LabyrinthRomand
 
-build cmake_object_order_depends_target_LabyrinthRomand: phony || CMakeFiles/LabyrinthRomand.dir
+build cmake_object_order_depends_target_LabyrinthRomand: phony || cmake_object_order_depends_target_glfw
 
 build CMakeFiles/LabyrinthRomand.dir/main.cpp.obj: CXX_COMPILER__LabyrinthRomand_Debug D$:/cppsha/LabyrinthRomand/main.cpp || cmake_object_order_depends_target_LabyrinthRomand
   DEP_FILE = CMakeFiles\LabyrinthRomand.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   OBJECT_FILE_DIR = CMakeFiles\LabyrinthRomand.dir
-  TARGET_COMPILE_PDB = CMakeFiles\LabyrinthRomand.dir\
-  TARGET_PDB = LabyrinthRomand.pdb
+
+build CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj: CXX_COMPILER__LabyrinthRomand_Debug D$:/cppsha/LabyrinthRomand/functions.cpp || cmake_object_order_depends_target_LabyrinthRomand
+  DEP_FILE = CMakeFiles\LabyrinthRomand.dir\functions.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm
+  OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
+  OBJECT_FILE_DIR = CMakeFiles\LabyrinthRomand.dir
 
 
 # =============================================================================
@@ -65,16 +71,39 @@ build CMakeFiles/LabyrinthRomand.dir/main.cpp.obj: CXX_COMPILER__LabyrinthRomand
 #############################################
 # Link the executable LabyrinthRomand.exe
 
-build LabyrinthRomand.exe: CXX_EXECUTABLE_LINKER__LabyrinthRomand_Debug CMakeFiles/LabyrinthRomand.dir/main.cpp.obj
+build LabyrinthRomand.exe: CXX_EXECUTABLE_LINKER__LabyrinthRomand_Debug CMakeFiles/LabyrinthRomand.dir/main.cpp.obj CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj | glfw/src/libglfw3.a || glfw/src/libglfw3.a
   FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = glfw/src/libglfw3.a  -lopengl32  -lglu32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\LabyrinthRomand.dir\
   TARGET_FILE = LabyrinthRomand.exe
   TARGET_IMPLIB = libLabyrinthRomand.dll.a
-  TARGET_PDB = LabyrinthRomand.pdb
+  TARGET_PDB = LabyrinthRomand.exe.dbg
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
 
 
 #############################################
@@ -99,10 +128,396 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/cppsha/LabyrinthRomand/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for install/strip
+
+build glfw/CMakeFiles/install/strip.util: CUSTOM_COMMAND glfw/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build glfw/install/strip: phony glfw/CMakeFiles/install/strip.util
+
+
+#############################################
+# Utility command for uninstall
+
+build glfw/uninstall: phony glfw/CMakeFiles/uninstall
+
+
+#############################################
+# Utility command for install/local
+
+build glfw/CMakeFiles/install/local.util: CUSTOM_COMMAND glfw/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build glfw/install/local: phony glfw/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build glfw/CMakeFiles/install.util: CUSTOM_COMMAND glfw/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build glfw/install: phony glfw/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build glfw/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build glfw/edit_cache: phony glfw/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build glfw/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SD:\cppsha\LabyrinthRomand -BD:\cppsha\LabyrinthRomand\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build glfw/rebuild_cache: phony glfw/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build glfw/list_install_components: phony
+
+
+#############################################
+# Custom command for glfw\CMakeFiles\uninstall
+
+build glfw/CMakeFiles/uninstall | ${cmake_ninja_workdir}glfw/CMakeFiles/uninstall: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P D:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/cmake_uninstall.cmake"
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/cppsha/LabyrinthRomand/glfw/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build glfw/src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SD:\cppsha\LabyrinthRomand -BD:\cppsha\LabyrinthRomand\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build glfw/src/rebuild_cache: phony glfw/src/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Order-only phony target for glfw
+
+build cmake_object_order_depends_target_glfw: phony || glfw/src/CMakeFiles/glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/context.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\context.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/init.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\init.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/input.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/input.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\input.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/monitor.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\monitor.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/platform.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/platform.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\platform.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/vulkan.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\vulkan.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/window.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\window.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/egl_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\egl_context.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/osmesa_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\osmesa_context.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/null_init.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/null_init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\null_init.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/null_monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\null_monitor.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/null_window.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/null_window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\null_window.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/null_joystick.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\null_joystick.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/win32_module.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\win32_module.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/win32_time.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\win32_time.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/win32_thread.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\win32_thread.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/win32_init.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\win32_init.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/win32_joystick.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\win32_joystick.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/win32_monitor.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\win32_monitor.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/win32_window.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\win32_window.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+build glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj: C_COMPILER__glfw_Debug D$:/cppsha/LabyrinthRomand/glfw/src/wgl_context.c || cmake_object_order_depends_target_glfw
+  DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
+  DEP_FILE = glfw\src\CMakeFiles\glfw.dir\wgl_context.c.obj.d
+  FLAGS = -g -Wall -std=c99 -Wdeclaration-after-statement
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glfw/src -ID:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  OBJECT_FILE_DIR = glfw\src\CMakeFiles\glfw.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target glfw
+
+
+#############################################
+# Link the static library glfw\src\libglfw3.a
+
+build glfw/src/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug glfw/src/CMakeFiles/glfw.dir/context.c.obj glfw/src/CMakeFiles/glfw.dir/init.c.obj glfw/src/CMakeFiles/glfw.dir/input.c.obj glfw/src/CMakeFiles/glfw.dir/monitor.c.obj glfw/src/CMakeFiles/glfw.dir/platform.c.obj glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj glfw/src/CMakeFiles/glfw.dir/window.c.obj glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj glfw/src/CMakeFiles/glfw.dir/null_init.c.obj glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj glfw/src/CMakeFiles/glfw.dir/null_window.c.obj glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = glfw\src\CMakeFiles\glfw.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = glfw\src\libglfw3.a
+  TARGET_PDB = glfw3.a.dbg
+
+
+#############################################
+# Utility command for list_install_components
+
+build glfw/src/list_install_components: phony
+
+
+#############################################
+# Utility command for update_mappings
+
+build glfw/src/update_mappings: phony glfw/src/CMakeFiles/update_mappings
+
+
+#############################################
+# Utility command for install/local
+
+build glfw/src/CMakeFiles/install/local.util: CUSTOM_COMMAND glfw/src/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build glfw/src/install/local: phony glfw/src/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build glfw/src/CMakeFiles/install.util: CUSTOM_COMMAND glfw/src/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build glfw/src/install: phony glfw/src/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build glfw/src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build glfw/src/edit_cache: phony glfw/src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for install/strip
+
+build glfw/src/CMakeFiles/install/strip.util: CUSTOM_COMMAND glfw/src/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build glfw/src/install/strip: phony glfw/src/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for glfw\src\CMakeFiles\update_mappings
+
+build glfw/src/CMakeFiles/update_mappings | ${cmake_ninja_workdir}glfw/src/CMakeFiles/update_mappings: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P D:/cppsha/LabyrinthRomand/glfw/CMake/GenerateMappings.cmake mappings.h.in mappings.h"
+  DESC = Updating gamepad mappings from upstream repository
+
 # =============================================================================
 # Target aliases.
 
 build LabyrinthRomand: phony LabyrinthRomand.exe
+
+build glfw: phony glfw/src/libglfw3.a
+
+build libglfw3.a: phony glfw/src/libglfw3.a
+
+build uninstall: phony glfw/uninstall
+
+build update_mappings: phony glfw/src/update_mappings
 
 # =============================================================================
 # Folder targets.
@@ -112,7 +527,21 @@ build LabyrinthRomand: phony LabyrinthRomand.exe
 #############################################
 # Folder: D:/cppsha/LabyrinthRomand/cmake-build-debug
 
-build all: phony LabyrinthRomand.exe
+build all: phony LabyrinthRomand.exe glfw/all
+
+# =============================================================================
+
+#############################################
+# Folder: D:/cppsha/LabyrinthRomand/cmake-build-debug/glfw
+
+build glfw/all: phony glfw/src/all
+
+# =============================================================================
+
+#############################################
+# Folder: D:/cppsha/LabyrinthRomand/cmake-build-debug/glfw/src
+
+build glfw/src/all: phony glfw/src/libglfw3.a
 
 # =============================================================================
 # Built-in targets
@@ -121,14 +550,14 @@ build all: phony LabyrinthRomand.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompilerABI.c D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXCompiler.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCXXCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineRCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCCompiler.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystem.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCXXCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestRCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/HP-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XL-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-Determine-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../glfw/CMakeLists.txt ../glfw/CMake/cmake_uninstall.cmake.in ../glfw/CMake/glfw3.pc.in ../glfw/CMake/glfw3Config.cmake.in ../glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/BasicConfigVersion-SameMajorVersion.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDependentOption.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakePackageConfigHelpers.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckLibraryExists.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindDoxygen.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindOpenGL.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindThreads.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/WriteBasicConfigVersionFile.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCCompilerABI.c D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXCompiler.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCXXCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineRCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCCompiler.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystem.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCXXCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeTestRCCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/HP-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XL-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-Determine-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake: phony
+build ../CMakeLists.txt ../glfw/CMakeLists.txt ../glfw/CMake/cmake_uninstall.cmake.in ../glfw/CMake/glfw3.pc.in ../glfw/CMake/glfw3Config.cmake.in ../glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/BasicConfigVersion-SameMajorVersion.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDependentOption.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakePackageConfigHelpers.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckLibraryExists.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindDoxygen.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindOpenGL.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindThreads.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/WriteBasicConfigVersionFile.cmake: phony
 
 
 #############################################
