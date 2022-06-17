@@ -69,7 +69,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
             ///animation here
 
 
-
             Player_Move(hwnd);
             Game_Show();
 

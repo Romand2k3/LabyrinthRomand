@@ -47,19 +47,19 @@ cmake_ninja_workdir = D$:/cppsha/LabyrinthRomand/cmake-build-debug/
 #############################################
 # Order-only phony target for LabyrinthRomand
 
-build cmake_object_order_depends_target_LabyrinthRomand: phony || cmake_object_order_depends_target_glfw
+build cmake_object_order_depends_target_LabyrinthRomand: phony || cmake_object_order_depends_target_doctest cmake_object_order_depends_target_glfw
 
 build CMakeFiles/LabyrinthRomand.dir/main.cpp.obj: CXX_COMPILER__LabyrinthRomand_Debug D$:/cppsha/LabyrinthRomand/main.cpp || cmake_object_order_depends_target_LabyrinthRomand
   DEP_FILE = CMakeFiles\LabyrinthRomand.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm -ID:/cppsha/LabyrinthRomand/external/doctest
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   OBJECT_FILE_DIR = CMakeFiles\LabyrinthRomand.dir
 
 build CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj: CXX_COMPILER__LabyrinthRomand_Debug D$:/cppsha/LabyrinthRomand/functions.cpp || cmake_object_order_depends_target_LabyrinthRomand
   DEP_FILE = CMakeFiles\LabyrinthRomand.dir\functions.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm -ID:/cppsha/LabyrinthRomand/external/doctest
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   OBJECT_FILE_DIR = CMakeFiles\LabyrinthRomand.dir
 
@@ -71,9 +71,9 @@ build CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj: CXX_COMPILER__LabyrinthR
 #############################################
 # Link the executable LabyrinthRomand.exe
 
-build LabyrinthRomand.exe: CXX_EXECUTABLE_LINKER__LabyrinthRomand_Debug CMakeFiles/LabyrinthRomand.dir/main.cpp.obj CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj | glfw/src/libglfw3.a || glfw/src/libglfw3.a
+build LabyrinthRomand.exe: CXX_EXECUTABLE_LINKER__LabyrinthRomand_Debug CMakeFiles/LabyrinthRomand.dir/main.cpp.obj CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj | glfw/src/libglfw3.a external/doctest/libdoctest.a || external/doctest/libdoctest.a glfw/src/libglfw3.a
   FLAGS = -g
-  LINK_LIBRARIES = glfw/src/libglfw3.a  -lopengl32  -lglu32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = glfw/src/libglfw3.a  -lopengl32  -lglu32  external/doctest/libdoctest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -83,15 +83,33 @@ build LabyrinthRomand.exe: CXX_EXECUTABLE_LINKER__LabyrinthRomand_Debug CMakeFil
 
 
 #############################################
-# Utility command for install/local
+# Utility command for cloud-test
 
-build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
-  DESC = Installing only the local directory...
+build cloud-test: phony CMakeFiles/cloud-test LabyrinthRomand.exe
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SD:\cppsha\LabyrinthRomand -BD:\cppsha\LabyrinthRomand\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
 
-build install/local: phony CMakeFiles/install/local.util
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for test
+
+build CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build test: phony CMakeFiles/test.util
 
 
 #############################################
@@ -107,6 +125,18 @@ build install: phony CMakeFiles/install.util
 
 
 #############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -115,18 +145,6 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
   restat = 1
 
 build edit_cache: phony CMakeFiles/edit_cache.util
-
-
-#############################################
-# Utility command for rebuild_cache
-
-build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SD:\cppsha\LabyrinthRomand -BD:\cppsha\LabyrinthRomand\cmake-build-debug"
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 
 #############################################
@@ -145,6 +163,13 @@ build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
   restat = 1
 
 build install/strip: phony CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for CMakeFiles\cloud-test
+
+build CMakeFiles/cloud-test | ${cmake_ninja_workdir}CMakeFiles/cloud-test: CUSTOM_COMMAND || LabyrinthRomand.exe external/doctest/libdoctest.a glfw/src/libglfw3.a
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && D:\cppsha\LabyrinthRomand\cmake-build-debug\LabyrinthRomand.exe --force-colors -d"
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -168,6 +193,30 @@ build glfw/install/strip: phony glfw/CMakeFiles/install/strip.util
 # Utility command for uninstall
 
 build glfw/uninstall: phony glfw/CMakeFiles/uninstall
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build glfw/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SD:\cppsha\LabyrinthRomand -BD:\cppsha\LabyrinthRomand\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build glfw/rebuild_cache: phony glfw/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for test
+
+build glfw/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build glfw/test: phony glfw/CMakeFiles/test.util
 
 
 #############################################
@@ -206,18 +255,6 @@ build glfw/edit_cache: phony glfw/CMakeFiles/edit_cache.util
 
 
 #############################################
-# Utility command for rebuild_cache
-
-build glfw/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SD:\cppsha\LabyrinthRomand -BD:\cppsha\LabyrinthRomand\cmake-build-debug"
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build glfw/rebuild_cache: phony glfw/CMakeFiles/rebuild_cache.util
-
-
-#############################################
 # Utility command for list_install_components
 
 build glfw/list_install_components: phony
@@ -245,6 +282,18 @@ build glfw/src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
   restat = 1
 
 build glfw/src/rebuild_cache: phony glfw/src/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for test
+
+build glfw/src/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build glfw/src/test: phony glfw/src/CMakeFiles/test.util
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target glfw
@@ -441,27 +490,15 @@ build glfw/src/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug glfw/src/CMakeFil
 
 
 #############################################
-# Utility command for list_install_components
-
-build glfw/src/list_install_components: phony
-
-
-#############################################
 # Utility command for update_mappings
 
 build glfw/src/update_mappings: phony glfw/src/CMakeFiles/update_mappings
 
 
 #############################################
-# Utility command for install/local
+# Utility command for list_install_components
 
-build glfw/src/CMakeFiles/install/local.util: CUSTOM_COMMAND glfw/src/all
-  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build glfw/src/install/local: phony glfw/src/CMakeFiles/install/local.util
+build glfw/src/list_install_components: phony
 
 
 #############################################
@@ -474,6 +511,18 @@ build glfw/src/CMakeFiles/install.util: CUSTOM_COMMAND glfw/src/all
   restat = 1
 
 build glfw/src/install: phony glfw/src/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build glfw/src/CMakeFiles/install/local.util: CUSTOM_COMMAND glfw/src/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\glfw\src && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build glfw/src/install/local: phony glfw/src/CMakeFiles/install/local.util
 
 
 #############################################
@@ -507,11 +556,129 @@ build glfw/src/CMakeFiles/update_mappings | ${cmake_ninja_workdir}glfw/src/CMake
   DESC = Updating gamepad mappings from upstream repository
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/cppsha/LabyrinthRomand/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build external/doctest/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\external\doctest && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SD:\cppsha\LabyrinthRomand -BD:\cppsha\LabyrinthRomand\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build external/doctest/rebuild_cache: phony external/doctest/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for test
+
+build external/doctest/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\external\doctest && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/doctest/test: phony external/doctest/CMakeFiles/test.util
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target doctest
+
+
+#############################################
+# Order-only phony target for doctest
+
+build cmake_object_order_depends_target_doctest: phony || external/doctest/CMakeFiles/doctest.dir
+
+build external/doctest/CMakeFiles/doctest.dir/doctest.cpp.obj: CXX_COMPILER__doctest_Debug D$:/cppsha/LabyrinthRomand/external/doctest/doctest.cpp || cmake_object_order_depends_target_doctest
+  DEP_FILE = external\doctest\CMakeFiles\doctest.dir\doctest.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm -ID:/cppsha/LabyrinthRomand/external/doctest
+  OBJECT_DIR = external\doctest\CMakeFiles\doctest.dir
+  OBJECT_FILE_DIR = external\doctest\CMakeFiles\doctest.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target doctest
+
+
+#############################################
+# Link the static library external\doctest\libdoctest.a
+
+build external/doctest/libdoctest.a: CXX_STATIC_LIBRARY_LINKER__doctest_Debug external/doctest/CMakeFiles/doctest.dir/doctest.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = external\doctest\CMakeFiles\doctest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = external\doctest\libdoctest.a
+  TARGET_PDB = doctest.a.dbg
+
+
+#############################################
+# Utility command for install/local
+
+build external/doctest/CMakeFiles/install/local.util: CUSTOM_COMMAND external/doctest/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\external\doctest && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build external/doctest/install/local: phony external/doctest/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build external/doctest/CMakeFiles/install.util: CUSTOM_COMMAND external/doctest/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\external\doctest && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build external/doctest/install: phony external/doctest/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build external/doctest/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\external\doctest && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build external/doctest/edit_cache: phony external/doctest/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build external/doctest/list_install_components: phony
+
+
+#############################################
+# Utility command for install/strip
+
+build external/doctest/CMakeFiles/install/strip.util: CUSTOM_COMMAND external/doctest/all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug\external\doctest && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build external/doctest/install/strip: phony external/doctest/CMakeFiles/install/strip.util
+
+# =============================================================================
 # Target aliases.
 
 build LabyrinthRomand: phony LabyrinthRomand.exe
 
+build doctest: phony external/doctest/libdoctest.a
+
 build glfw: phony glfw/src/libglfw3.a
+
+build libdoctest.a: phony external/doctest/libdoctest.a
 
 build libglfw3.a: phony glfw/src/libglfw3.a
 
@@ -527,7 +694,14 @@ build update_mappings: phony glfw/src/update_mappings
 #############################################
 # Folder: D:/cppsha/LabyrinthRomand/cmake-build-debug
 
-build all: phony LabyrinthRomand.exe glfw/all
+build all: phony LabyrinthRomand.exe glfw/all external/doctest/all
+
+# =============================================================================
+
+#############################################
+# Folder: D:/cppsha/LabyrinthRomand/cmake-build-debug/external/doctest
+
+build external/doctest/all: phony external/doctest/libdoctest.a
 
 # =============================================================================
 
@@ -550,14 +724,14 @@ build glfw/src/all: phony glfw/src/libglfw3.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../glfw/CMakeLists.txt ../glfw/CMake/cmake_uninstall.cmake.in ../glfw/CMake/glfw3.pc.in ../glfw/CMake/glfw3Config.cmake.in ../glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/BasicConfigVersion-SameMajorVersion.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDependentOption.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakePackageConfigHelpers.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckLibraryExists.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindDoxygen.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindOpenGL.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindThreads.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/WriteBasicConfigVersionFile.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../external/doctest/CMakeLists.txt ../glfw/CMakeLists.txt ../glfw/CMake/cmake_uninstall.cmake.in ../glfw/CMake/glfw3.pc.in ../glfw/CMake/glfw3Config.cmake.in ../glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/BasicConfigVersion-SameMajorVersion.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDependentOption.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakePackageConfigHelpers.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckLibraryExists.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindDoxygen.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindOpenGL.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindThreads.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/WriteBasicConfigVersionFile.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../glfw/CMakeLists.txt ../glfw/CMake/cmake_uninstall.cmake.in ../glfw/CMake/glfw3.pc.in ../glfw/CMake/glfw3Config.cmake.in ../glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/BasicConfigVersion-SameMajorVersion.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDependentOption.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakePackageConfigHelpers.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckLibraryExists.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindDoxygen.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindOpenGL.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindThreads.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/WriteBasicConfigVersionFile.cmake: phony
+build ../CMakeLists.txt ../external/doctest/CMakeLists.txt ../glfw/CMakeLists.txt ../glfw/CMake/cmake_uninstall.cmake.in ../glfw/CMake/glfw3.pc.in ../glfw/CMake/glfw3Config.cmake.in ../glfw/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/BasicConfigVersion-SameMajorVersion.cmake.in D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDependentOption.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakePackageConfigHelpers.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckIncludeFile.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CheckLibraryExists.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindDoxygen.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindOpenGL.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindThreads.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/GNUInstallDirs.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake D$:/универ/cppsha/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/WriteBasicConfigVersionFile.cmake: phony
 
 
 #############################################

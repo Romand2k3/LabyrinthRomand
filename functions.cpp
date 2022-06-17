@@ -20,17 +20,39 @@ int btnCnt = sizeof (btn) / sizeof (btn[0]);
 
 #define mapW 200
 #define mapH 200
-#define pyraN 200
+#define pyraN 100
 #define hillN 20
+
+#define travaN 1000
+#define treeN 200
+#define mushN 400
+#define flowerN 500
+
 TPosition map[mapW][mapH];
 TPosition normalforlight[mapW][mapH];
 TColor mapcolor[mapW][mapH];
+TTexure maptex[mapW][mapH];
+
 TPyramid pyramids[pyraN];
+
+TPlant trava[travaN];
+TPlant tree[treeN];
+TPlant mush[mushN];
+TPlant flower[flowerN];
+
+
 GLuint mapIndex[mapW-1][mapH-1][6];
 int mapIndexNum = sizeof(mapIndex) / sizeof(GLuint);
 
 float pyramid[] = {0,0, 3, 1,1,0, 1,-1,0, -1,-1,0, -1,1,0, 1,1,0};
 
+float plant[] = {-0.5,0,0, 0.5,0,0, 0.5,0,1, -0.5,0,1,
+                 0,-0.5,0, 0,0.5,0, 0,0.5,1, 0,-0.5,1};
+float plantUV[] = {0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0, 0,0};
+GLuint plantIndex[] = {0,1,2, 2,3,0, 4,5,6, 6,7,4};
+int plantIndexNum = sizeof(plantIndex) / sizeof(GLuint);
+
+GLuint tex_trava_zelen, tex_bereza, tex_elka, tex_trava_syhaya, tex_good_flower, tex_bad_flower, tex_red_mush, tex_green_mush, tex_blue_mush, tex_zemla;
 
 void WindowResize(int width, int height){
     glViewport(0, 0, width, height);
@@ -131,14 +153,46 @@ void Make_Normals(TPosition a, TPosition b, TPosition c, TPosition *n){
 }
 
 
+void Get_Texture(char *file, GLuint &texture){
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    int width, height, n;
+    unsigned char *data = stbi_load(file, &width, &height, &n, 0);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
+                 n==4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    stbi_image_free(data);
+}
+
+
 void Map_Init(){
+    Get_Texture("../textures/zemla.png", tex_zemla);
+    Get_Texture("../textures/good_flower.png", tex_good_flower);
+    Get_Texture("../textures/bad_flower.png", tex_bad_flower);
+    Get_Texture("../textures/bereza.png", tex_bereza);
+    Get_Texture("../textures/elka.png", tex_elka);
+    Get_Texture("../textures/trava_syhaya.png", tex_trava_syhaya);
+    Get_Texture("../textures/trava_zelen.png", tex_trava_zelen);
+    Get_Texture("../textures/red_mush.png", tex_red_mush);
+    Get_Texture("../textures/green_mush.png", tex_green_mush);
+    Get_Texture("../textures/blue_mush.png", tex_blue_mush);
+
+
     for (int i = 0; i < mapW; i++)
         for (int j = 0; j < mapH; j++)
         {
-            float dc = (rand() %20) *0.01;
-            mapcolor[i][j].r = 0.30 + dc;
-            mapcolor[i][j].g = 0.5 + dc;
-            mapcolor[i][j].b = 0.15 + dc;
+            maptex[i][j].a = i;
+            maptex[i][j].b = j;
+
             map[i][j].x = i;
             map[i][j].y = j;
             map[i][j].z = (rand() % 10) * 0.05;
@@ -159,6 +213,7 @@ void Map_Init(){
         }
     }
 
+
     std::srand(time(nullptr));
     for (int i = 0; i<hillN; i++){
         MakeSomeHill(rand() % mapW, rand() % mapH, 10 + rand() % 50, rand() % 10);
@@ -172,9 +227,9 @@ void Map_Init(){
     for (int i = 0; i < pyraN; i++){
         float dc = (rand() %20) *0.01;
         float ds = (rand() %120) *0.01;
-        pyramids[i].clr.r = 0.95;
-        pyramids[i].clr.g = 0.87 + dc;
-        pyramids[i].clr.b = 0.75 + dc;
+        pyramids[i].clr.r = 0.85;
+        pyramids[i].clr.g = 0.77 + dc;
+        pyramids[i].clr.b = 0.65 + dc;
 
         pyramids[i].scl.x = 0.2 + ds;
         pyramids[i].scl.y = 0.2 + ds;
@@ -190,11 +245,53 @@ void Map_Init(){
         }
         pyramids[i].pos.z = map[(int)pyramids[i].pos.x][(int)pyramids[i].pos.y].z - 0.6;
     }
-    for (int i = 0; i < pyraN; i++) {
-        std::cout << pyramids[i].pos.x<<'\n';
-        std::cout << pyramids[i].pos.y<<'\n';
-        std::cout << pyramids[i].pos.z<<'\n';
+
+    for (int i = 0; i < travaN; i++){
+        if (i % 2 == 0) trava[i].tex = tex_trava_syhaya;
+        if (i % 2 == 1) trava[i].tex = tex_trava_zelen;
+
+        trava[i].scl = 2 + (rand()% 5 ) *0.1;
+
+        trava[i].pos.x = 1 + rand() % mapW - 1;
+        trava[i].pos.y = 1 + rand() % mapH - 1;
+        trava[i].pos.z = map[(int)trava[i].pos.x][(int)trava[i].pos.y].z;
     }
+
+    for (int i = 0; i < treeN; i++){
+        if (i % 2 == 0) tree[i].tex = tex_bereza;
+        if (i % 2 == 1) tree[i].tex = tex_elka;
+
+        tree[i].scl = 15 + (rand()% 5 ) *0.1;
+
+        tree[i].pos.x = 1 + rand() % mapW - 1;
+        tree[i].pos.y = 1 + rand() % mapH - 1;
+        tree[i].pos.z = map[(int)tree[i].pos.x][(int)tree[i].pos.y].z;
+    }
+
+    for (int i = 0; i < flowerN; i++){
+        if (i % 2 == 0) flower[i].tex = tex_good_flower;
+        if (i % 2 == 1) flower[i].tex = tex_bad_flower;
+
+        flower[i].scl = 2 + (rand()% 5 ) *0.1;
+
+        flower[i].pos.x = 1 + rand() % mapW - 1;
+        flower[i].pos.y = 1 + rand() % mapH - 1;
+        flower[i].pos.z = map[(int)flower[i].pos.x][(int)flower[i].pos.y].z;
+    }
+
+    for (int i = 0; i < mushN; i++){
+        if (i % 3 == 0) mush[i].tex = tex_red_mush;
+        if (i % 3 == 1) mush[i].tex = tex_green_mush;
+        if (i % 3 == 2) mush[i].tex = tex_blue_mush;
+
+        mush[i].scl = 2 + (rand()% 5 ) *0.1;
+
+        mush[i].pos.x = 1 + rand() % mapW - 1;
+        mush[i].pos.y = 1 + rand() % mapH - 1;
+        mush[i].pos.z = map[(int)mush[i].pos.x][(int)mush[i].pos.y].z;
+    }
+
+
 }
 
 void Game_Init(HWND hwnd){
@@ -203,6 +300,8 @@ void Game_Init(HWND hwnd){
     glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_NORMALIZE);
+    glEnable(GL_TEXTURE_2D);
+
 
     Map_Init();
 
@@ -235,7 +334,6 @@ void Player_Move(HWND hwnd){
     SetCursorPos(based.x,based.y);
     camera.z = OnFoot(camera.x, camera.y) + 5;
 
-    std::cout<<camera.x<<" "<<camera.y<<'\n';
     for (int i; i<pyraN; i++){
         if ((int)camera.x >= pyramids[i].pos.x-1 && (int)camera.x <= pyramids[i].pos.x+1
             && (int)camera.y >= pyramids[i].pos.y-1 && (int)camera.y <= pyramids[i].pos.y+1){
@@ -269,16 +367,21 @@ void Game_Show(){
     glLightfv(GL_LIGHT0, GL_POSITION, sunpoint);
 
     glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, map);
-    glColorPointer(3, GL_FLOAT, 0, mapcolor);
-    glNormalPointer(GL_FLOAT, 0, normalforlight);
-    glDrawElements(GL_TRIANGLES, mapIndexNum, GL_UNSIGNED_INT, mapIndex);
-    glDisableClientState(GL_COLOR_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, map);
+        glTexCoordPointer(2, GL_FLOAT, 0, maptex);
+        glColor3f(0.6, 0.6, 0.6);
+        glNormalPointer(GL_FLOAT, 0, normalforlight);
+        glBindTexture(GL_TEXTURE_2D, tex_zemla);
+        glDrawElements(GL_TRIANGLES, mapIndexNum, GL_UNSIGNED_INT, mapIndex);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
 
 
+    glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &pyramid);
     for (int i = 0; i < pyraN; i++){
         glPushMatrix();
@@ -288,9 +391,80 @@ void Game_Show(){
         glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
         glPopMatrix();
     }
-
     glDisableClientState(GL_VERTEX_ARRAY);
-    glNormal3f(0,0,10);
+
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.99);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, &plant);
+        glTexCoordPointer(2, GL_FLOAT, 0, plantUV);
+        glColor3f(0.75, 0.75, 0.75);
+        for (int i=0; i < travaN; i++) {
+            glBindTexture(GL_TEXTURE_2D, trava[i].tex);
+            glPushMatrix();
+            glTranslatef(trava[i].pos.x, trava[i].pos.y, trava[i].pos.z);
+            glScalef(trava[i].scl, trava[i].scl, trava[i].scl);
+            glDrawElements(GL_TRIANGLES, plantIndexNum, GL_UNSIGNED_INT, plantIndex);
+            glPopMatrix();
+        }
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.99);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &plant);
+    glTexCoordPointer(2, GL_FLOAT, 0, plantUV);
+    glColor3f(0.75, 0.75, 0.75);
+    for (int i=0; i < treeN; i++) {
+        glBindTexture(GL_TEXTURE_2D, tree[i].tex);
+        glPushMatrix();
+        glTranslatef(tree[i].pos.x, tree[i].pos.y, tree[i].pos.z);
+        glScalef(tree[i].scl, tree[i].scl, tree[i].scl);
+        glDrawElements(GL_TRIANGLES, plantIndexNum, GL_UNSIGNED_INT, plantIndex);
+        glPopMatrix();
+    }
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.99);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &plant);
+    glTexCoordPointer(2, GL_FLOAT, 0, plantUV);
+    glColor3f(0.75, 0.75, 0.75);
+    for (int i=0; i < flowerN; i++) {
+        glBindTexture(GL_TEXTURE_2D, flower[i].tex);
+        glPushMatrix();
+        glTranslatef(flower[i].pos.x, flower[i].pos.y, flower[i].pos.z);
+        glScalef(flower[i].scl, flower[i].scl, flower[i].scl);
+        glDrawElements(GL_TRIANGLES, plantIndexNum, GL_UNSIGNED_INT, plantIndex);
+        glPopMatrix();
+    }
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.99);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &plant);
+    glTexCoordPointer(2, GL_FLOAT, 0, plantUV);
+    glColor3f(0.75, 0.75, 0.75);
+    for (int i=0; i < mushN; i++) {
+        glBindTexture(GL_TEXTURE_2D, mush[i].tex);
+        glPushMatrix();
+        glTranslatef(mush[i].pos.x, mush[i].pos.y, mush[i].pos.z);
+        glScalef(mush[i].scl, mush[i].scl, mush[i].scl);
+        glDrawElements(GL_TRIANGLES, plantIndexNum, GL_UNSIGNED_INT, plantIndex);
+        glPopMatrix();
+    }
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
     glPopMatrix();
 }
 

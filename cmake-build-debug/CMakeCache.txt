@@ -348,8 +348,17 @@ OPENGL_gl_LIBRARY:STRING=opengl32
 //GLU library for win32
 OPENGL_glu_LIBRARY:STRING=glu32
 
+//Value Computed by CMake
+doctest_BINARY_DIR:STATIC=D:/cppsha/LabyrinthRomand/cmake-build-debug/external/doctest
+
 //The directory containing a CMake configuration file for doctest.
 doctest_DIR:PATH=doctest_DIR-NOTFOUND
+
+//Value Computed by CMake
+doctest_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+doctest_SOURCE_DIR:STATIC=D:/cppsha/LabyrinthRomand/external/doctest
 
 
 ########################
@@ -490,7 +499,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
