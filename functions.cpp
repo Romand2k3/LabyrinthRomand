@@ -17,45 +17,57 @@ TButton btn[] = {
 int btnCnt = sizeof (btn) / sizeof (btn[0]);
 
 ///объявление карты, пирамидок и растений и их параметров
-#define mapW 200
-#define mapH 200
-#define pyraN 100
-#define hillN 20
+#define mapW 200 ///ширина камеры
+#define mapH 200 ///длина камеры
+#define pyraN 100 ///количество пирамидок
+#define hillN 20 ///количество холмов
 
-#define travaN 1000
-#define treeN 200
-#define mushN 400
-#define flowerN 500
+#define travaN 1000 ///количество травы
+#define treeN 200 ///количество деревьев
+#define mushN 400 ///количество грибов
+#define flowerN 500 ///количество цветов
 
-TPosition map[mapW][mapH];
-TPosition normalforlight[mapW][mapH];
-TColor mapcolor[mapW][mapH];
-TTexure maptex[mapW][mapH];
+TPosition map[mapW][mapH]; ///массив координат карты
+TPosition normalforlight[mapW][mapH]; ///массив координат нормалей
+TTexure maptex[mapW][mapH]; ///массив координат для текстур
 
-TPyramid pyramids[pyraN];
+TPyramid pyramids[pyraN];///масиив пирамидок
 
-TPlant trava[travaN];
-TPlant tree[treeN];
-TPlant mush[mushN];
-TPlant flower[flowerN];
+TPlant trava[travaN];///массив травы
+TPlant tree[treeN];///массив деревьев
+TPlant mush[mushN];///массив грибов
+TPlant flower[flowerN];///массив цветов
 
-GLuint mapIndex[mapW-1][mapH-1][6];
-int mapIndexNum = sizeof(mapIndex) / sizeof(GLuint);
+GLuint mapIndex[mapW-1][mapH-1][6];///массив индексов для карты
+int mapIndexNum = sizeof(mapIndex) / sizeof(GLuint);///количесвто индексов карты
 
-float pyramid[] = {0,0, 3, 1,1,0, 1,-1,0, -1,-1,0, -1,1,0, 1,1,0};
+float pyramid[] = {0,0, 3, 1,1,0, 1,-1,0, -1,-1,0, -1,1,0, 1,1,0};///форма одной пирамидки
 
 float plant[] = {-0.5,0,0, 0.5,0,0, 0.5,0,1, -0.5,0,1,
-                 0,-0.5,0, 0,0.5,0, 0,0.5,1, 0,-0.5,1};
-float plantUV[] = {0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0, 0,0};
-GLuint plantIndex[] = {0,1,2, 2,3,0, 4,5,6, 6,7,4};
-int plantIndexNum = sizeof(plantIndex) / sizeof(GLuint);
+                 0,-0.5,0, 0,0.5,0, 0,0.5,1, 0,-0.5,1};///форма одного растения
+float plantUV[] = {0,1, 1,1, 1,0, 0,0, 0,1, 1,1, 1,0, 0,0};///грани одного растения
+GLuint plantIndex[] = {0,1,2, 2,3,0, 4,5,6, 6,7,4};///массив индексов одного растения
+int plantIndexNum = sizeof(plantIndex) / sizeof(GLuint);///количество индексов одного растения
 
-GLuint tex_trava_zelen, tex_bereza, tex_elka, tex_trava_syhaya, tex_good_flower, tex_bad_flower, tex_red_mush, tex_green_mush, tex_blue_mush, tex_zemla;
+GLuint
+tex_trava_zelen, /// текстура травы зеленой
+tex_bereza, /// текстура березы
+tex_elka, /// текстура  елки
+tex_trava_syhaya, /// текстура травы сухой
+tex_good_flower, /// текстура хорошего цветка
+tex_bad_flower, /// текстура плохого цветка
+tex_red_mush, /// текстура красного гриба
+tex_green_mush, /// текстура зеденого гриба
+tex_blue_mush, /// текстура синего гриба
+tex_zemla;/// текстура земли
 
 
 
 void WindowResize(int width, int height){
-    ///функция изменения размеров окна
+    /**функция изменения размеров окна
+    * width - ширина окна
+    * height - высота окна
+     */
     glViewport(0, 0, width, height);
     float XandYDiff = width / (float) height;
 
@@ -68,14 +80,18 @@ void WindowResize(int width, int height){
 
 
 void Camera_Apply(){
-    ///функция применения параметров камеры
+    /**функция применения параметров камеры
+     */
     glRotatef(-camera.Xrot, 1,0,0);
     glRotatef(-camera.Zrot, 0,0,1);
     glTranslatef(-camera.x, -camera.y, -camera.z);
 }
 
 void Camera_Rotating(float xAngle, float zAngle){
-    ///функция изменения положения камеры в зависимости от движений мышки
+    /**функция изменения положения камеры в зависимости от движений мышки
+    * xAngle - угол по горизонтали
+    * zAngle - угол по вертикали
+     */
     camera.Zrot += zAngle;
     if (camera.Zrot < 0 ) camera.Zrot +=360;
     if (camera.Zrot > 360 ) camera.Zrot -=360;
@@ -86,7 +102,10 @@ void Camera_Rotating(float xAngle, float zAngle){
 
 
 float OnFoot(float x, float y){
-    ///функция расчета для перемещения камеры по оси z отсносительно ландшафта
+    /**функция расчета для перемещения камеры по оси z отсносительно ландшафта
+    * x - координата по x
+    * y - координата по y
+     */
     if (!OnMap(x,y, mapW, mapH)) return 0;
     int INTx = (int)x;
     int INTy = (int)y;
@@ -99,7 +118,9 @@ float OnFoot(float x, float y){
 }
 
 void Button_Show(TButton btn){
-    ///фукнция отображения кнопки
+    /**фукнция отображения кнопки
+    * btn - кнопка
+     */
     glEnableClientState(GL_VERTEX_ARRAY);
     if (btn.light) glColor3f(1,0,0);
     else glColor3f(0,1,0);
@@ -109,13 +130,20 @@ void Button_Show(TButton btn){
 }
 
 bool InButton(int x, int y, TButton btn){
-    ///фукнция проверки нахождения мыши на кнопке
+    /**фукнция проверки нахождения мыши на кнопке
+    * x - координата кнопки по x
+    * y - координата кнопки по y
+    * btn - кнопка
+     */
     return (x > btn.vert[0]) && (x < btn.vert[4]) &&
            (y > btn.vert[1]) && (y < btn.vert[5]);
 }
 
 void Show_Menu(int width, int height){
-    ///функция отображения меню
+    /**функция отображения меню
+    * width - ширина окна
+    * height - высотка окна
+     */
     glPushMatrix();
     glLoadIdentity();
     glOrtho(0,width, height,0,-1,1);
@@ -125,7 +153,12 @@ void Show_Menu(int width, int height){
 }
 
 void MakeSomeHill(int x, int y, int radius, int height){
-    ///функция создания холомов на карте
+    /**функция создания холомов на карте
+    * x - координата холма по x
+    * y - коордианта холма по y
+    * radius - радиус холма
+    * height - высота холма
+    */
     for (int i = x-radius; i <= x+radius; i++)
         for (int j = y-radius; j<= y+radius; j++){
             if (OnMap(i,j, mapW, mapH)){
@@ -162,7 +195,10 @@ void Make_Normals(TPosition a, TPosition b, TPosition c, TPosition *n){
 }
 
 void Get_Texture(char *file, GLuint &texture){
-    ///функция получения текстур из файлов и их обработки
+    /**функция получения текстур из файлов и их обработки
+    * file -  путь к файлу
+    * texture - текстура полученная
+    */
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -178,9 +214,10 @@ void Get_Texture(char *file, GLuint &texture){
 }
 
 void Map_Init(){
-    ///функция инициализации карты
+    /**функция инициализации карты
+     */
 
-    ///получение текстур
+     ///получение текстур
     Get_Texture("../textures/zemla.png", tex_zemla);
     Get_Texture("../textures/good_flower.png", tex_good_flower);
     Get_Texture("../textures/bad_flower.png", tex_bad_flower);
@@ -349,8 +386,7 @@ void Player_Move(HWND hwnd){
     camera.z = OnFoot(camera.x, camera.y) + 5;
 
     for (int i; i<pyraN; i++){
-        if ((int)camera.x >= pyramids[i].pos.x-1 && (int)camera.x <= pyramids[i].pos.x+1
-            && (int)camera.y >= pyramids[i].pos.y-1 && (int)camera.y <= pyramids[i].pos.y+1){
+        if (PyraHit(camera.x, camera.y, pyramids[i].pos.x,pyramids[i].pos.y)){
             camera.x = 5;
             camera.y = 5;
             camera.Xrot = 70;
@@ -549,7 +585,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC){
-    ///инициализауия OpenGL
+    ///стандартная инициализауия OpenGL
 
     PIXELFORMATDESCRIPTOR pdf;
 
@@ -580,7 +616,7 @@ void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC){
 
 
 void DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC){
-    ///отключение OpenGL
+    ///стандартное отключение OpenGL
 
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hRC);
