@@ -1,9 +1,10 @@
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/LabyrinthRomand.dir
+D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/GAME_TEST.dir
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/cloud-test.dir
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/test.dir
-D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/install.dir
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/install/local.dir
+D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/install.dir
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/edit_cache.dir
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/list_install_components.dir
 D:/cppsha/LabyrinthRomand/cmake-build-debug/CMakeFiles/install/strip.dir

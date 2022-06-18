@@ -1,13 +1,11 @@
 #include <GLFW/glfw3.h>
 #include <windows.h>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/transform.hpp>
 #include <iostream>
 #include <math.h>
 #include "functions.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
+#include "calculate.h"
 
 ///объявление кнопок и их параметров
 TButton btn[] = {
@@ -86,14 +84,10 @@ void Camera_Rotating(float xAngle, float zAngle){
     if (camera.Xrot > 180 ) camera.Xrot = 180;
 }
 
-bool OnMap(float x, float y){
-    ///функция проверки находится ли объект на карте
-    return (x >= 0) && (x < mapW) && (y >= 0) && (y <=mapW );
-}
 
 float OnFoot(float x, float y){
     ///функция расчета для перемещения камеры по оси z отсносительно ландшафта
-    if (!OnMap(x,y)) return 0;
+    if (!OnMap(x,y, mapW, mapH)) return 0;
     int INTx = (int)x;
     int INTy = (int)y;
 
@@ -134,7 +128,7 @@ void MakeSomeHill(int x, int y, int radius, int height){
     ///функция создания холомов на карте
     for (int i = x-radius; i <= x+radius; i++)
         for (int j = y-radius; j<= y+radius; j++){
-            if (OnMap(i,j)){
+            if (OnMap(i,j, mapW, mapH)){
                 ///не мой способ создания холма
                 float lenght = sqrt(pow(x-i,2) + pow(y-j,2));
                 if (lenght < radius){

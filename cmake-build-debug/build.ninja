@@ -47,19 +47,26 @@ cmake_ninja_workdir = D$:/cppsha/LabyrinthRomand/cmake-build-debug/
 #############################################
 # Order-only phony target for LabyrinthRomand
 
-build cmake_object_order_depends_target_LabyrinthRomand: phony || cmake_object_order_depends_target_doctest cmake_object_order_depends_target_glfw
+build cmake_object_order_depends_target_LabyrinthRomand: phony || cmake_object_order_depends_target_glfw
 
 build CMakeFiles/LabyrinthRomand.dir/main.cpp.obj: CXX_COMPILER__LabyrinthRomand_Debug D$:/cppsha/LabyrinthRomand/main.cpp || cmake_object_order_depends_target_LabyrinthRomand
   DEP_FILE = CMakeFiles\LabyrinthRomand.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm -ID:/cppsha/LabyrinthRomand/external/doctest
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   OBJECT_FILE_DIR = CMakeFiles\LabyrinthRomand.dir
 
 build CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj: CXX_COMPILER__LabyrinthRomand_Debug D$:/cppsha/LabyrinthRomand/functions.cpp || cmake_object_order_depends_target_LabyrinthRomand
   DEP_FILE = CMakeFiles\LabyrinthRomand.dir\functions.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm -ID:/cppsha/LabyrinthRomand/external/doctest
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm
+  OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
+  OBJECT_FILE_DIR = CMakeFiles\LabyrinthRomand.dir
+
+build CMakeFiles/LabyrinthRomand.dir/calculate.cpp.obj: CXX_COMPILER__LabyrinthRomand_Debug D$:/cppsha/LabyrinthRomand/calculate.cpp || cmake_object_order_depends_target_LabyrinthRomand
+  DEP_FILE = CMakeFiles\LabyrinthRomand.dir\calculate.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   OBJECT_FILE_DIR = CMakeFiles\LabyrinthRomand.dir
 
@@ -71,15 +78,56 @@ build CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj: CXX_COMPILER__LabyrinthR
 #############################################
 # Link the executable LabyrinthRomand.exe
 
-build LabyrinthRomand.exe: CXX_EXECUTABLE_LINKER__LabyrinthRomand_Debug CMakeFiles/LabyrinthRomand.dir/main.cpp.obj CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj | glfw/src/libglfw3.a external/doctest/libdoctest.a || external/doctest/libdoctest.a glfw/src/libglfw3.a
+build LabyrinthRomand.exe: CXX_EXECUTABLE_LINKER__LabyrinthRomand_Debug CMakeFiles/LabyrinthRomand.dir/main.cpp.obj CMakeFiles/LabyrinthRomand.dir/functions.cpp.obj CMakeFiles/LabyrinthRomand.dir/calculate.cpp.obj | glfw/src/libglfw3.a || glfw/src/libglfw3.a
   FLAGS = -g
-  LINK_LIBRARIES = glfw/src/libglfw3.a  -lopengl32  -lglu32  external/doctest/libdoctest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = glfw/src/libglfw3.a  -lopengl32  -lglu32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\LabyrinthRomand.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_FILE = LabyrinthRomand.exe
   TARGET_IMPLIB = libLabyrinthRomand.dll.a
   TARGET_PDB = LabyrinthRomand.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target GAME_TEST
+
+
+#############################################
+# Order-only phony target for GAME_TEST
+
+build cmake_object_order_depends_target_GAME_TEST: phony || cmake_object_order_depends_target_doctest
+
+build CMakeFiles/GAME_TEST.dir/test.cpp.obj: CXX_COMPILER__GAME_TEST_Debug D$:/cppsha/LabyrinthRomand/test.cpp || cmake_object_order_depends_target_GAME_TEST
+  DEP_FILE = CMakeFiles\GAME_TEST.dir\test.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm -ID:/cppsha/LabyrinthRomand/external/doctest
+  OBJECT_DIR = CMakeFiles\GAME_TEST.dir
+  OBJECT_FILE_DIR = CMakeFiles\GAME_TEST.dir
+
+build CMakeFiles/GAME_TEST.dir/calculate.cpp.obj: CXX_COMPILER__GAME_TEST_Debug D$:/cppsha/LabyrinthRomand/calculate.cpp || cmake_object_order_depends_target_GAME_TEST
+  DEP_FILE = CMakeFiles\GAME_TEST.dir\calculate.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/cppsha/LabyrinthRomand/glfw/include -ID:/cppsha/LabyrinthRomand/glm -ID:/cppsha/LabyrinthRomand/external/doctest
+  OBJECT_DIR = CMakeFiles\GAME_TEST.dir
+  OBJECT_FILE_DIR = CMakeFiles\GAME_TEST.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target GAME_TEST
+
+
+#############################################
+# Link the executable GAME_TEST.exe
+
+build GAME_TEST.exe: CXX_EXECUTABLE_LINKER__GAME_TEST_Debug CMakeFiles/GAME_TEST.dir/test.cpp.obj CMakeFiles/GAME_TEST.dir/calculate.cpp.obj | external/doctest/libdoctest.a || external/doctest/libdoctest.a
+  FLAGS = -g
+  LINK_LIBRARIES = external/doctest/libdoctest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\GAME_TEST.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = GAME_TEST.exe
+  TARGET_IMPLIB = libGAME_TEST.dll.a
+  TARGET_PDB = GAME_TEST.exe.dbg
 
 
 #############################################
@@ -113,18 +161,6 @@ build test: phony CMakeFiles/test.util
 
 
 #############################################
-# Utility command for install
-
-build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build install: phony CMakeFiles/install.util
-
-
-#############################################
 # Utility command for install/local
 
 build CMakeFiles/install/local.util: CUSTOM_COMMAND all
@@ -134,6 +170,18 @@ build CMakeFiles/install/local.util: CUSTOM_COMMAND all
   restat = 1
 
 build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && "D:\универ\cppsha\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
 
 
 #############################################
@@ -168,7 +216,7 @@ build install/strip: phony CMakeFiles/install/strip.util
 #############################################
 # Custom command for CMakeFiles\cloud-test
 
-build CMakeFiles/cloud-test | ${cmake_ninja_workdir}CMakeFiles/cloud-test: CUSTOM_COMMAND || LabyrinthRomand.exe external/doctest/libdoctest.a glfw/src/libglfw3.a
+build CMakeFiles/cloud-test | ${cmake_ninja_workdir}CMakeFiles/cloud-test: CUSTOM_COMMAND || LabyrinthRomand.exe glfw/src/libglfw3.a
   COMMAND = cmd.exe /C "cd /D D:\cppsha\LabyrinthRomand\cmake-build-debug && D:\cppsha\LabyrinthRomand\cmake-build-debug\LabyrinthRomand.exe --force-colors -d"
 
 # =============================================================================
@@ -672,6 +720,8 @@ build external/doctest/install/strip: phony external/doctest/CMakeFiles/install/
 # =============================================================================
 # Target aliases.
 
+build GAME_TEST: phony GAME_TEST.exe
+
 build LabyrinthRomand: phony LabyrinthRomand.exe
 
 build doctest: phony external/doctest/libdoctest.a
@@ -694,7 +744,7 @@ build update_mappings: phony glfw/src/update_mappings
 #############################################
 # Folder: D:/cppsha/LabyrinthRomand/cmake-build-debug
 
-build all: phony LabyrinthRomand.exe glfw/all external/doctest/all
+build all: phony LabyrinthRomand.exe GAME_TEST.exe glfw/all external/doctest/all
 
 # =============================================================================
 

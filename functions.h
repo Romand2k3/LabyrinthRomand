@@ -2,6 +2,8 @@
 #ifndef LABYRINTHROMAND_FUNCTIONS_H
 #define LABYRINTHROMAND_FUNCTIONS_H
 #include <windows.h>
+#include <GLFW/glfw3.h>
+
 
 typedef struct {
     ///структура для кнопок
@@ -67,6 +69,7 @@ LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
     void Game_Show();
 
     void WindowResize(int width, int height);
+
 
 
 #endif //LABYRINTHROMAND_FUNCTIONS_H

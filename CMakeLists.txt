@@ -10,14 +10,19 @@ include_directories(glm)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(LabyrinthRomand main.cpp functions.cpp functions.h)
+add_subdirectory(external/doctest)
+
+add_executable(LabyrinthRomand main.cpp functions.cpp functions.h calculate.cpp calculate.h)
 
 target_link_libraries(LabyrinthRomand
-        glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARY} doctest)
+        glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARY} )
+
+add_executable(GAME_TEST test.cpp calculate.cpp)
+
+target_link_libraries(GAME_TEST doctest)
 
 enable_testing()
 
-add_subdirectory(external/doctest)
 
 add_test(NAME LabyrinthRomand COMMAND LabyrinthRomand --force-colors -d)
 
