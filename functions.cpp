@@ -62,12 +62,12 @@ tex_blue_mush, /// текстура синего гриба
 tex_zemla;/// текстура земли
 
 
-
+/**функция изменения размеров окна
+* @param width - ширина окна
+* @param height - высота окна
+ */
 void WindowResize(int width, int height){
-    /**функция изменения размеров окна
-    * width - ширина окна
-    * height - высота окна
-     */
+
     glViewport(0, 0, width, height);
     float XandYDiff = width / (float) height;
 
@@ -78,20 +78,21 @@ void WindowResize(int width, int height){
     glLoadIdentity();
 }
 
-
+/**функция применения параметров камеры
+ */
 void Camera_Apply(){
-    /**функция применения параметров камеры
-     */
+
     glRotatef(-camera.Xrot, 1,0,0);
     glRotatef(-camera.Zrot, 0,0,1);
     glTranslatef(-camera.x, -camera.y, -camera.z);
 }
 
+/**функция изменения положения камеры в зависимости от движений мышки
+* @param xAngle - угол по горизонтали
+* @param zAngle - угол по вертикали
+ */
 void Camera_Rotating(float xAngle, float zAngle){
-    /**функция изменения положения камеры в зависимости от движений мышки
-    * xAngle - угол по горизонтали
-    * zAngle - угол по вертикали
-     */
+
     camera.Zrot += zAngle;
     if (camera.Zrot < 0 ) camera.Zrot +=360;
     if (camera.Zrot > 360 ) camera.Zrot -=360;
@@ -100,12 +101,12 @@ void Camera_Rotating(float xAngle, float zAngle){
     if (camera.Xrot > 180 ) camera.Xrot = 180;
 }
 
-
+/**функция расчета для перемещения камеры по оси z отсносительно ландшафта
+* @param x - координата по x
+* @param y - координата по y
+ */
 float OnFoot(float x, float y){
-    /**функция расчета для перемещения камеры по оси z отсносительно ландшафта
-    * x - координата по x
-    * y - координата по y
-     */
+
     if (!OnMap(x,y, mapW, mapH)) return 0;
     int INTx = (int)x;
     int INTy = (int)y;
@@ -117,10 +118,11 @@ float OnFoot(float x, float y){
     ///конец не моего кода
 }
 
+/**фукнция отображения кнопки
+* @param btn - кнопка
+ */
 void Button_Show(TButton btn){
-    /**фукнция отображения кнопки
-    * btn - кнопка
-     */
+
     glEnableClientState(GL_VERTEX_ARRAY);
     if (btn.light) glColor3f(1,0,0);
     else glColor3f(0,1,0);
@@ -129,21 +131,23 @@ void Button_Show(TButton btn){
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+/**фукнция проверки нахождения мыши на кнопке
+* @param x - координата кнопки по x
+* @param y - координата кнопки по y
+* @param btn - кнопка
+ */
 bool InButton(int x, int y, TButton btn){
-    /**фукнция проверки нахождения мыши на кнопке
-    * x - координата кнопки по x
-    * y - координата кнопки по y
-    * btn - кнопка
-     */
+
     return (x > btn.vert[0]) && (x < btn.vert[4]) &&
            (y > btn.vert[1]) && (y < btn.vert[5]);
 }
 
+/**функция отображения меню
+* @param width - ширина окна
+* @param height - высотка окна
+ */
 void Show_Menu(int width, int height){
-    /**функция отображения меню
-    * width - ширина окна
-    * height - высотка окна
-     */
+
     glPushMatrix();
     glLoadIdentity();
     glOrtho(0,width, height,0,-1,1);
@@ -152,13 +156,14 @@ void Show_Menu(int width, int height){
     glPopMatrix();
 }
 
+/**функция создания холомов на карте
+* @param x - координата холма по x
+* @param y - коордианта холма по y
+* @param radius - радиус холма
+* @param height - высота холма
+*/
 void MakeSomeHill(int x, int y, int radius, int height){
-    /**функция создания холомов на карте
-    * x - координата холма по x
-    * y - коордианта холма по y
-    * radius - радиус холма
-    * height - высота холма
-    */
+
     for (int i = x-radius; i <= x+radius; i++)
         for (int j = y-radius; j<= y+radius; j++){
             if (OnMap(i,j, mapW, mapH)){
@@ -173,8 +178,10 @@ void MakeSomeHill(int x, int y, int radius, int height){
         }
 }
 
+/**
+ * функция создания нормалей на карте
+*/
 void Make_Normals(TPosition a, TPosition b, TPosition c, TPosition *n){
-    ///функция расчеты нормалей граней для возможности их освещения
     ///не мой код, загуглил расчет нормалей
     float temp;
     TPosition v1, v2;
@@ -194,11 +201,12 @@ void Make_Normals(TPosition a, TPosition b, TPosition c, TPosition *n){
     ///конец не моего кода
 }
 
+/**функция получения текстур из файлов и их обработки
+* file -  путь к файлу
+* texture - текстура полученная
+*/
 void Get_Texture(char *file, GLuint &texture){
-    /**функция получения текстур из файлов и их обработки
-    * file -  путь к файлу
-    * texture - текстура полученная
-    */
+
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -213,9 +221,10 @@ void Get_Texture(char *file, GLuint &texture){
     stbi_image_free(data);
 }
 
+/**функция инициализации карты
+ */
 void Map_Init(){
-    /**функция инициализации карты
-     */
+
 
      ///получение текстур
     Get_Texture("textures/zemla.png", tex_zemla);
@@ -344,8 +353,12 @@ void Map_Init(){
 
 }
 
+
+/**
+ *    инициализация самой игры со всеми ее параметрами
+ */
 void Game_Init(HWND hwnd){
-    ///инициализация самой игры со всеми ее параметрами
+
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
@@ -360,8 +373,12 @@ void Game_Init(HWND hwnd){
     WindowResize(rect.right, rect.bottom);
 }
 
+
+/**функция обработки движений игрока
+ * @param hwnd - дескриптор окна
+ */
 void Player_Move(HWND hwnd){
-    ///функция обработки движений игрока
+
     if (GetForegroundWindow() != hwnd) return;
 
     float ugol = -camera.Zrot / 180 * M_PI;
@@ -405,9 +422,10 @@ void Player_Move(HWND hwnd){
 
 }
 
-
+/**функция рисования мира
+ */
 void Game_Show(){
-    ///функция рисования мира
+
     glClearColor((178.f / 255.f), 211.f / 255.f, 230.f / 255.f, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
@@ -527,10 +545,12 @@ void Game_Show(){
 }
 
 
-
+/**
+ *     функция обработки действий с окном
+ */
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    ///функция обработки действий с окном
+
     switch (uMsg)
     {
         case WM_CLOSE:
@@ -584,8 +604,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
+/**
+ *     стандартная инициализауия OpenGL
+ */
 void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC){
-    ///стандартная инициализауия OpenGL
 
     PIXELFORMATDESCRIPTOR pdf;
 
@@ -614,9 +636,10 @@ void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC){
 
 }
 
-
+/**
+ *     стандартное отключение OpenGL
+ */
 void DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC){
-    ///стандартное отключение OpenGL
 
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hRC);

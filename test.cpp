@@ -8,7 +8,5 @@ TEST_CASE("onmap") {
 }
 
 TEST_CASE("pyrahit") {
-int v = PyraHit(5, 5, 10, 10);
-
-REQUIRE(v == false);
+REQUIRE(PyraHit(5, 5, 10, 10) == false);
 }

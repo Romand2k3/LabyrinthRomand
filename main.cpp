@@ -3,12 +3,15 @@
 #include "functions.h" ///заголовочный файл функции
 
 
+/**
+ * основная функция
+ */
 int WINAPI WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
                    LPSTR lpCmdLine,
                    int nCmdShow)
 {
-    ///основная функция
+
     WNDCLASSEX wcex;
     HDC hDC;
     HGLRC hRC;
