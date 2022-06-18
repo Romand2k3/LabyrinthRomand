@@ -5,6 +5,11 @@ bool OnMap(float x, float y, int mapX, int mapY){
     return (x >= 0) && (x < mapX) && (y >= 0) && (y <=mapY );
 }
 bool PyraHit(float cameraX, float cameraY, int PyraX, int PyraY){
+    /**
+     * проверка столкновения с пирамидой
+     * cameraX, cameraY - позиция камеры
+     * PyraX, PyraY - позиция пирамиды
+     */
     return (int)cameraX >= PyraX-1 && (int)cameraX <= PyraX+1
            && (int)cameraY >= PyraY-1 && (int)cameraY <= PyraY+1;
 }
