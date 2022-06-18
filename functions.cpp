@@ -9,7 +9,7 @@
 #include "stb_image.h"
 
 
-
+///объявление кнопок и их параметров
 TButton btn[] = {
         {"start", {0,0, 100,0, 100,30, 0, 30,}, FALSE},
         {"stop", {0,40, 100,40, 100,70, 0, 70,}, FALSE},
@@ -18,6 +18,7 @@ TButton btn[] = {
 
 int btnCnt = sizeof (btn) / sizeof (btn[0]);
 
+///объявление карты, пирамидок и растений и их параметров
 #define mapW 200
 #define mapH 200
 #define pyraN 100
@@ -40,7 +41,6 @@ TPlant tree[treeN];
 TPlant mush[mushN];
 TPlant flower[flowerN];
 
-
 GLuint mapIndex[mapW-1][mapH-1][6];
 int mapIndexNum = sizeof(mapIndex) / sizeof(GLuint);
 
@@ -54,7 +54,10 @@ int plantIndexNum = sizeof(plantIndex) / sizeof(GLuint);
 
 GLuint tex_trava_zelen, tex_bereza, tex_elka, tex_trava_syhaya, tex_good_flower, tex_bad_flower, tex_red_mush, tex_green_mush, tex_blue_mush, tex_zemla;
 
+
+
 void WindowResize(int width, int height){
+    ///функция изменения размеров окна
     glViewport(0, 0, width, height);
     float XandYDiff = width / (float) height;
 
@@ -67,12 +70,14 @@ void WindowResize(int width, int height){
 
 
 void Camera_Apply(){
+    ///функция применения параметров камеры
     glRotatef(-camera.Xrot, 1,0,0);
     glRotatef(-camera.Zrot, 0,0,1);
     glTranslatef(-camera.x, -camera.y, -camera.z);
 }
 
 void Camera_Rotating(float xAngle, float zAngle){
+    ///функция изменения положения камеры в зависимости от движений мышки
     camera.Zrot += zAngle;
     if (camera.Zrot < 0 ) camera.Zrot +=360;
     if (camera.Zrot > 360 ) camera.Zrot -=360;
@@ -82,13 +87,16 @@ void Camera_Rotating(float xAngle, float zAngle){
 }
 
 bool OnMap(float x, float y){
+    ///функция проверки находится ли объект на карте
     return (x >= 0) && (x < mapW) && (y >= 0) && (y <=mapW );
 }
 
 float OnFoot(float x, float y){
+    ///функция расчета для перемещения камеры по оси z отсносительно ландшафта
     if (!OnMap(x,y)) return 0;
     int INTx = (int)x;
     int INTy = (int)y;
+
     ///не мой код
     float height1 = ( (1-(x-INTx))*map[INTx][INTy].z + (x-INTx)*map[INTx+1][INTy].z);
     float height2 = ((1-(x-INTx))*map[INTx][INTy+1].z + (x-INTx)*map[INTx+1][INTy+1].z );
@@ -96,28 +104,34 @@ float OnFoot(float x, float y){
     ///конец не моего кода
 }
 
-void TButton_Show(TButton btn){
+void Button_Show(TButton btn){
+    ///фукнция отображения кнопки
     glEnableClientState(GL_VERTEX_ARRAY);
-    if (btn.hover) glColor3f(1,0,0);
+    if (btn.light) glColor3f(1,0,0);
     else glColor3f(0,1,0);
     glVertexPointer(2, GL_FLOAT, 0, btn.vert);
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
 }
-bool PointInButton(int x, int y, TButton btn){
+
+bool InButton(int x, int y, TButton btn){
+    ///фукнция проверки нахождения мыши на кнопке
     return (x > btn.vert[0]) && (x < btn.vert[4]) &&
            (y > btn.vert[1]) && (y < btn.vert[5]);
 }
+
 void Show_Menu(int width, int height){
+    ///функция отображения меню
     glPushMatrix();
     glLoadIdentity();
     glOrtho(0,width, height,0,-1,1);
     for (int i = 0; i < btnCnt; i++)
-        TButton_Show(btn[i]);
+        Button_Show(btn[i]);
     glPopMatrix();
 }
 
 void MakeSomeHill(int x, int y, int radius, int height){
+    ///функция создания холомов на карте
     for (int i = x-radius; i <= x+radius; i++)
         for (int j = y-radius; j<= y+radius; j++){
             if (OnMap(i,j)){
@@ -126,13 +140,14 @@ void MakeSomeHill(int x, int y, int radius, int height){
                 if (lenght < radius){
                     lenght = lenght / radius * M_PI_2;
                     map[i][j].z += cos(lenght) * height;
-                    ///конец не меого способа
+                    ///конец не моего кода
                 }
             }
         }
 }
 
 void Make_Normals(TPosition a, TPosition b, TPosition c, TPosition *n){
+    ///функция расчеты нормалей граней для возможности их освещения
     ///не мой код, загуглил расчет нормалей
     float temp;
     TPosition v1, v2;
@@ -152,29 +167,26 @@ void Make_Normals(TPosition a, TPosition b, TPosition c, TPosition *n){
     ///конец не моего кода
 }
 
-
 void Get_Texture(char *file, GLuint &texture){
-
+    ///функция получения текстур из файлов и их обработки
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
     int width, height, n;
     unsigned char *data = stbi_load(file, &width, &height, &n, 0);
-
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
                  n==4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
-
     glBindTexture(GL_TEXTURE_2D, 0);
     stbi_image_free(data);
 }
 
-
 void Map_Init(){
+    ///функция инициализации карты
+
+    ///получение текстур
     Get_Texture("../textures/zemla.png", tex_zemla);
     Get_Texture("../textures/good_flower.png", tex_good_flower);
     Get_Texture("../textures/bad_flower.png", tex_bad_flower);
@@ -186,7 +198,7 @@ void Map_Init(){
     Get_Texture("../textures/green_mush.png", tex_green_mush);
     Get_Texture("../textures/blue_mush.png", tex_blue_mush);
 
-
+    ///инициализация пола/земли
     for (int i = 0; i < mapW; i++)
         for (int j = 0; j < mapH; j++)
         {
@@ -198,6 +210,7 @@ void Map_Init(){
             map[i][j].z = (rand() % 10) * 0.05;
         }
 
+    ///инициализация позиции индексов пола/земли
     for (int i = 0; i < mapW-1; i++) {
         int position = i * mapH;
         for (int j = 0; j < mapH-1; j++) {
@@ -213,17 +226,19 @@ void Map_Init(){
         }
     }
 
-
     std::srand(time(nullptr));
+    ///инициализация холмов
     for (int i = 0; i<hillN; i++){
         MakeSomeHill(rand() % mapW, rand() % mapH, 10 + rand() % 50, rand() % 10);
     }
 
+    ///получение нормалей для света
     for (int i = 0; i < mapW; i++)
         for (int j = 0; j < mapH; j++) {
             Make_Normals(map[i][j], map[i + 1][j], map[i][j + 1], &normalforlight[i][j]);
         }
 
+    ///инициализация пирадмидок
     for (int i = 0; i < pyraN; i++){
         float dc = (rand() %20) *0.01;
         float ds = (rand() %120) *0.01;
@@ -246,6 +261,7 @@ void Map_Init(){
         pyramids[i].pos.z = map[(int)pyramids[i].pos.x][(int)pyramids[i].pos.y].z - 0.6;
     }
 
+    ///инициализация травы
     for (int i = 0; i < travaN; i++){
         if (i % 2 == 0) trava[i].tex = tex_trava_syhaya;
         if (i % 2 == 1) trava[i].tex = tex_trava_zelen;
@@ -257,6 +273,7 @@ void Map_Init(){
         trava[i].pos.z = map[(int)trava[i].pos.x][(int)trava[i].pos.y].z;
     }
 
+    ///инициализация деревьев
     for (int i = 0; i < treeN; i++){
         if (i % 2 == 0) tree[i].tex = tex_bereza;
         if (i % 2 == 1) tree[i].tex = tex_elka;
@@ -268,6 +285,7 @@ void Map_Init(){
         tree[i].pos.z = map[(int)tree[i].pos.x][(int)tree[i].pos.y].z;
     }
 
+    ///инициализация цветов
     for (int i = 0; i < flowerN; i++){
         if (i % 2 == 0) flower[i].tex = tex_good_flower;
         if (i % 2 == 1) flower[i].tex = tex_bad_flower;
@@ -279,6 +297,7 @@ void Map_Init(){
         flower[i].pos.z = map[(int)flower[i].pos.x][(int)flower[i].pos.y].z;
     }
 
+    ///инициализация грибов
     for (int i = 0; i < mushN; i++){
         if (i % 3 == 0) mush[i].tex = tex_red_mush;
         if (i % 3 == 1) mush[i].tex = tex_green_mush;
@@ -295,13 +314,13 @@ void Map_Init(){
 }
 
 void Game_Init(HWND hwnd){
+    ///инициализация самой игры со всеми ее параметрами
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_NORMALIZE);
     glEnable(GL_TEXTURE_2D);
-
 
     Map_Init();
 
@@ -311,6 +330,7 @@ void Game_Init(HWND hwnd){
 }
 
 void Player_Move(HWND hwnd){
+    ///функция обработки движений игрока
     if (GetForegroundWindow() != hwnd) return;
 
     float ugol = -camera.Zrot / 180 * M_PI;
@@ -357,15 +377,18 @@ void Player_Move(HWND hwnd){
 
 
 void Game_Show(){
+    ///функция рисования мира
     glClearColor((178.f / 255.f), 211.f / 255.f, 230.f / 255.f, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     glPushMatrix();
     Camera_Apply();
 
+    ///настройка света
     GLfloat sunpoint[] = {1,0,2,0};
     glLightfv(GL_LIGHT0, GL_POSITION, sunpoint);
 
+    ///рисование пола/земли
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
@@ -381,6 +404,7 @@ void Game_Show(){
     glDisableClientState(GL_VERTEX_ARRAY);
 
 
+    ///рисование пирамидок
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &pyramid);
     for (int i = 0; i < pyraN; i++){
@@ -393,6 +417,7 @@ void Game_Show(){
     }
     glDisableClientState(GL_VERTEX_ARRAY);
 
+    ///рисование травы
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.99);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -411,6 +436,7 @@ void Game_Show(){
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
 
+    ///рисование деревьеьв
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.99);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -429,6 +455,7 @@ void Game_Show(){
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
 
+    ///рисование цветов
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.99);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -447,6 +474,7 @@ void Game_Show(){
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
 
+    ///рисование грибов
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.99);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -472,15 +500,18 @@ void Game_Show(){
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+    ///функция обработки действий с окном
     switch (uMsg)
     {
         case WM_CLOSE:
+            ///выход из окна
             PostQuitMessage(0);
             break;
 
         case WM_LBUTTONDOWN:
+            ///нажатие левой кнопки мыши
             for (int i = 0; i < btnCnt; i++)
-                if (PointInButton(LOWORD(lParam), HIWORD(lParam), btn[i])) {
+                if (InButton(LOWORD(lParam), HIWORD(lParam), btn[i])) {
                     std::cout << btn[i].name << '\n';
                     if (strcmp(btn[i].name, "quit")==0)
                         PostQuitMessage(0);
@@ -488,17 +519,20 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_MOUSEMOVE:
+            ///движение мыши
             for (int i = 0; i < btnCnt; i++)
-                btn[i].hover =  PointInButton(LOWORD(lParam), HIWORD(lParam), btn[i]);
+                btn[i].light =  InButton(LOWORD(lParam), HIWORD(lParam), btn[i]);
             break;
 
         case WM_SIZE:
+            ///изменение размера окна
             WindowResize(LOWORD(lParam), HIWORD(lParam));
             break;
 
-//        case WM_SETCURSOR:
-//            ShowCursor(FALSE);
-//            break;
+        case WM_SETCURSOR:
+        ///прятание курсора
+            ShowCursor(FALSE);
+            break;
 
         case WM_DESTROY:
             return 0;
@@ -521,6 +555,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC){
+    ///инициализауия OpenGL
 
     PIXELFORMATDESCRIPTOR pdf;
 
@@ -551,6 +586,7 @@ void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC){
 
 
 void DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC){
+    ///отключение OpenGL
 
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hRC);

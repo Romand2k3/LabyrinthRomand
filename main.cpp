@@ -1,6 +1,6 @@
-#include <GLFW/glfw3.h>
-#include <windows.h>
-#include "functions.h"
+#include <GLFW/glfw3.h> ///библиотека для 3D графики
+#include <windows.h> ///библиотека для обработки окна windows
+#include "functions.h" ///заголовочный файл функции
 
 
 int WINAPI WinMain(HINSTANCE hInstance,
@@ -8,6 +8,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
                    LPSTR lpCmdLine,
                    int nCmdShow)
 {
+    ///основная функция
     WNDCLASSEX wcex;
     HDC hDC;
     HGLRC hRC;
@@ -30,6 +31,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     if (!RegisterClassEx(&wcex))
         return 0;
 
+    ///настройка дескриптора окна
     hwnd = CreateWindowEx(0,
                           "Labyrinth",
                           "Labyrinth Romand",
@@ -44,15 +46,15 @@ int WINAPI WinMain(HINSTANCE hInstance,
                           NULL);
 
     ShowWindow(hwnd, nCmdShow);
-
     EnableOpenGL(hwnd, &hDC, &hRC);
-
     Game_Init(hwnd);
 
     while (!bQuit)
+    ///главный цикл обработки
     {
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
+            ///обработка закрытия окна
             if (msg.message == WM_QUIT)
             {
                 bQuit = TRUE;
@@ -65,15 +67,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
         }
         else
         {
-
-            ///animation here
-
-
+            ///анимация здесь
             Player_Move(hwnd);
             Game_Show();
-
             SwapBuffers(hDC);
-//            theta_for_sun += 0.05f;
             Sleep(1);
         }
     }

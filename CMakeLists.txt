@@ -3,7 +3,6 @@ project(LabyrinthRomand)
 
 find_package(OpenGL REQUIRED)
 
-
 add_subdirectory(glfw)
 
 include_directories(glfw/include)

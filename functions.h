@@ -4,45 +4,48 @@
 #include <windows.h>
 
 typedef struct {
+    ///структура для кнопок
     char name[20];
     float vert[8];
-    bool hover;
+    bool light;
 } TButton;
 
 typedef struct {
+    ///структура для цвета
     float r,g,b;
 } TColor;
 
 typedef struct {
+    ///структура для поцизии текстуры
     float a,b;
 } TTexure;
 
 typedef struct {
+    ///структура для размера отдельно по x,y,z
     float x,y,z;
 } TScale;
 
 typedef struct {
+    ///структура дял позиции
     float x,y,z;
 } TPosition;
 
 typedef struct {
-    TColor clr;
-    TPosition pos;
-} TCell;
-
-typedef struct {
+    ///структура для пирамидок
     TColor clr;
     TScale scl;
     TPosition pos;
 } TPyramid;
 
 typedef struct {
+    ///структура для растений
     GLuint tex;
     int scl;
     TPosition pos;
 } TPlant;
 
 struct {
+    ///структура для модуля камеры игрока
     float x,y,z;
     float Xrot, Zrot;
 } camera = {5,5,5,70,-40};
