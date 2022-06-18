@@ -202,8 +202,8 @@ void Make_Normals(TPosition a, TPosition b, TPosition c, TPosition *n){
 }
 
 /**функция получения текстур из файлов и их обработки
-* file -  путь к файлу
-* texture - текстура полученная
+* @param file -  путь к файлу
+* @param texture - текстура полученная
 */
 void Get_Texture(char *file, GLuint &texture){
 
@@ -356,6 +356,7 @@ void Map_Init(){
 
 /**
  *    инициализация самой игры со всеми ее параметрами
+ *    @param hwnd - дексриптор окна
  */
 void Game_Init(HWND hwnd){
 
