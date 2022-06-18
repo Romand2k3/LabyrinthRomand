@@ -28,3 +28,5 @@ add_test(NAME LabyrinthRomand COMMAND LabyrinthRomand --force-colors -d)
 
 add_custom_target(cloud-test COMMAND LabyrinthRomand --force-colors -d)
 
+
+file( COPY ${CMAKE_CURRENT_SOURCE_DIR}/textures DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)

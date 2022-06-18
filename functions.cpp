@@ -218,16 +218,16 @@ void Map_Init(){
      */
 
      ///получение текстур
-    Get_Texture("../textures/zemla.png", tex_zemla);
-    Get_Texture("../textures/good_flower.png", tex_good_flower);
-    Get_Texture("../textures/bad_flower.png", tex_bad_flower);
-    Get_Texture("../textures/bereza.png", tex_bereza);
-    Get_Texture("../textures/elka.png", tex_elka);
-    Get_Texture("../textures/trava_syhaya.png", tex_trava_syhaya);
-    Get_Texture("../textures/trava_zelen.png", tex_trava_zelen);
-    Get_Texture("../textures/red_mush.png", tex_red_mush);
-    Get_Texture("../textures/green_mush.png", tex_green_mush);
-    Get_Texture("../textures/blue_mush.png", tex_blue_mush);
+    Get_Texture("textures/zemla.png", tex_zemla);
+    Get_Texture("textures/good_flower.png", tex_good_flower);
+    Get_Texture("textures/bad_flower.png", tex_bad_flower);
+    Get_Texture("textures/bereza.png", tex_bereza);
+    Get_Texture("textures/elka.png", tex_elka);
+    Get_Texture("textures/trava_syhaya.png", tex_trava_syhaya);
+    Get_Texture("textures/trava_zelen.png", tex_trava_zelen);
+    Get_Texture("textures/red_mush.png", tex_red_mush);
+    Get_Texture("textures/green_mush.png", tex_green_mush);
+    Get_Texture("textures/blue_mush.png", tex_blue_mush);
 
     ///инициализация пола/земли
     for (int i = 0; i < mapW; i++)
